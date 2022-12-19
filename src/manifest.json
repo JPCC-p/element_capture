@@ -1,0 +1,9 @@
+{
+    "name": "Element Capture",
+    "description": "Capture Select Element",
+    "version": "0.1",
+    "manifest_version": 3,
+    "action": {
+        "default_popup": "popup.html"
+    }
+}

@@ -1,8 +1,13 @@
 <!DOCTYPE html>
 <html>
 <style>
+    #option {
+        display: flex;
+        width: 50%;
+    }
+
     .color {
-        width: 4rem;
+        flex-grow: 1;
         height: 3rem;
         margin: .5rem;
         color: #666;
@@ -12,7 +17,7 @@
 
 <body>
     <h1>Options</h1>
-    <div>
+    <div id="option">
         <button class="color" style="background: #fcc">Copy</button>
         <button class="color" style="background: #cfc">Download</button>
         <button class="color" style="background: #ccf">Copy&Download</button>

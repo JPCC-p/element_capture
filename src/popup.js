@@ -8,7 +8,7 @@ document.getElementById("btn").addEventListener("click", async () => {
 
 function onRun() {
     chrome.storage.sync.get(null, (options) => {
-      document.body.style.backgroundColor = "#fee";
-      alert(options.Capture_Name)
+        document.body.style.backgroundColor = "#fee";
+        alert(options.Capture_Name)
     });
-  }
+}

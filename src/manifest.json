@@ -3,7 +3,8 @@
     "description": "Capture Select Element",
     "version": "0.1",
     "manifest_version": 3,
-    "permissions": ["activeTab", "scripting"],
+    "permissions": ["activeTab", "scripting","storage"],
+    "option_page":"options.html",
     "action": {
         "default_popup": "popup.html",
         "default_icon": "extension.png"

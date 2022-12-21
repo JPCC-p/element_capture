@@ -10,5 +10,9 @@ function onRun() {
     chrome.storage.sync.get(null, (options) => {
         document.body.style.backgroundColor = "#fee";
         alert(options.Capture_Name)
+        chrome.tab.query({ active: true, currentWindow: true }, function (tabs) {
+            chrome.tabs.sendMessage(tabs[0].id{ message: "Capture!" }, function (item) {
+            })
+        })
     });
 }

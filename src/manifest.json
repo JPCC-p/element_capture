@@ -3,8 +3,33 @@
     "description": "Capture Select Element",
     "version": "0.1",
     "manifest_version": 3,
-    "permissions": ["activeTab", "scripting","storage"],
-    "options_page":"options.html",
+    "permissions": [
+        "activeTab",
+        "scripting",
+        "storage",
+        "clipboardWrite",
+        "downloads",
+        "pageCapture",
+        "debugger",
+        "background"
+    ],
+    "options_page": "options.html",
+    "background": {
+        "scripts": [
+            "event.js"
+        ],
+        "persistent": false
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "content.js"
+            ]
+        }
+    ],
     "action": {
         "default_popup": "popup.html",
         "default_icon": "extension.png"

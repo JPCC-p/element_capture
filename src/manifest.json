@@ -15,10 +15,7 @@
     ],
     "options_page": "options.html",
     "background": {
-        "scripts": [
-            "event.js"
-        ],
-        "persistent": false
+        "service_worker": "event.js"
     },
     "content_scripts": [
         {

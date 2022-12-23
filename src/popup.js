@@ -4,8 +4,7 @@ document.getElementById("btn").addEventListener("click", async () => {
 
 function onRun() {
     chrome.storage.sync.get(null, (options) => {
-        // test用背景変更
-        document.body.style.backgroundColor = "#fee";
+        document.body.style.backgroundColor = "lightgreen";
         // console.log(options.Capture_Name)
         //content.jsに送る
         chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {

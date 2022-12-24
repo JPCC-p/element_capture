@@ -4,6 +4,8 @@ chrome.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
         if (request.message !== "GetCapture") { return }
 
+        const rect = request.rect;
+
         chrome.debugger.attach({ tabId: request.tabid }, "1.3", () => { console.log("Attach debugger") })
         chrome.debugger.sendCommand(
             { tabId: request.tabid },
@@ -19,5 +21,6 @@ chrome.runtime.onMessage.addListener(
         });
 
         sendResponse({ response: "listeher is successful" });
+        return true;
     }
 );

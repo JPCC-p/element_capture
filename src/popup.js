@@ -5,12 +5,13 @@ document.getElementById("btn").addEventListener("click", async () => {
 function onRun() {
     chrome.storage.sync.get(null, (options) => {
         document.body.style.backgroundColor = "lightgreen";
-        // console.log(options.Capture_Name)
+        // console.log(options.Capture_Mode)
         //content.jsに送る
         chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
             chrome.tabs.sendMessage(tabs[0].id, {
                 message: "Capture",
-                "data": options.Capture_Name
+                "data": options.Capture_Mode,
+                "tabid": tabs[0].id
             });
         });
     });

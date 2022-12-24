@@ -4,7 +4,7 @@ chrome.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
         if (request.message !== "GetCapture") { return }
 
-        const rect = request.rect;
+        const rect = request.data.rect;
 
         chrome.debugger.attach({ tabId: request.tabid }, "1.3", () => { console.log("Attach debugger") })
         chrome.debugger.sendCommand(
@@ -12,7 +12,7 @@ chrome.runtime.onMessage.addListener(
             "Page.captureScreenshot",
             {
                 // format: request.data.format, png,jpeg,webp
-                clip: { x: rect.x, y: rect.y, width: rect.width, height: rect.height },
+                clip: { x: rect.x, y: rect.y, width: rect.width, height: rect.height, scale: 1 },
                 captureBeyondViewPort: true
             }
         )

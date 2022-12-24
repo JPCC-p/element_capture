@@ -21,6 +21,6 @@ chrome.runtime.onMessage.addListener(
         });
 
         sendResponse({ response: "listeher is successful" });
-        return true;
+        return;
     }
 );

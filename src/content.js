@@ -1,12 +1,12 @@
 chrome.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
         if (request.message !== "Capture") return;
-        document.getElementsByTagName("h1")[0].innerHTML = request.data;
-        console.log(request.data);
+        // document.getElementsByTagName("h1")[0].innerHTML = request.data;
+        // console.log(request.data);
         toggle_outline();
         window.addEventListener("click", (target) => {
             target.preventDefault()
-            capture(target);
+            capture(target,request);
         });
     }
 );
@@ -19,7 +19,7 @@ function toggle_outline() {
     style.appendChild(document.createTextNode(css))
     document.head.appendChild(style)
 }
-function capture(target) {
+function capture(target,request) {
     capture_mode = request.data;
     const x = target.clientX;
     const y = target.clientY;

@@ -1,11 +1,13 @@
 chrome.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
-        if (request.message == "Capture") {
-            document.body.style.backgroundColor = "#777";
-            document.getElementsByTagName("h1")[0].innerHTML = request.data;
-            console.log(request.data);
-            toggle_outline();
-        }
+        if (request.message !== "Capture") return;
+        document.getElementsByTagName("h1")[0].innerHTML = request.data;
+        console.log(request.data);
+        toggle_outline();
+        window.addEventListener("click", (target) => {
+            target.preventDefault()
+            capture(target);
+        });
     }
 );
 function toggle_outline() {
@@ -16,4 +18,13 @@ function toggle_outline() {
     style.setAttribute('id', '__capture__')
     style.appendChild(document.createTextNode(css))
     document.head.appendChild(style)
+}
+function capture(target) {
+    capture_mode = request.data;
+    const x = target.clientX;
+    const y = target.clientY;
+    // クリックした座標にあるElementを取得
+    const coodinate = document.elementFromPoint(x, y)
+    const rect = coodinate.getBoundingClientRect();
+    console.log(rect)
 }

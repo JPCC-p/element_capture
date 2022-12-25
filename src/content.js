@@ -63,20 +63,28 @@ function Base64ToImage(base64img, mode, format) {
     }
 }
 function copy_img(base64img, format) {
+    // バイナリ変換
+    var bin = atob(base64img);
+    var buffer = new Uint8Array(bin.length);
+    for (var i = 0; i < bin.length; i++) {
+        buffer[i] = bin.charCodeAt(i);
+    }
+    var blob = new Blob([buffer], { type: 'image/png' }); //. イメージバッファから Blob を生成
+
     switch (format) {
         case "png":
             var item = new ClipboardItem({
-                "image/png": base64img
+                "image/png": blo
             });
             break;
         case "jpeg":
             var item = new ClipboardItem({
-                "image/jpeg": base64img
+                "image/jpeg": blo
             });
             break;
         case "webp":
             var item = new ClipboardItem({
-                "image/webp": base64img
+                "image/webp": blo
             });
             break;
         default:

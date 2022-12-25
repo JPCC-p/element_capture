@@ -37,7 +37,51 @@ function capture(target, request) {
             "rect": rect
         },
         "tabid": request.tabid,
-    }, function (response) { if (response) { alert(response); } });
-
-
+    }, function (response) { 
+        Base64ToImage(response,request.Capture_Mode,request.Capture_Format);
+     });
+}
+function Base64ToImage(base64img, mode, format) {
+    var img_element = document.createElement("img");
+    img_element.src = `data:image/${format};base64,${base64img}`;
+    switch (mode) {
+        case "Download":
+            img_element.setAttribute("download");
+            img_element.click();
+            break;
+        case "Copy":
+            copy_img(base64img,format);
+            break;
+        case "Copy&Download":
+            img_element.setAttribute("download");
+            img_element.click();
+            copy_img(base64img,format);
+            break;
+        default:
+            console.log("Unexpected")
+    }
+}
+function copy_img(base64img,format){
+    async () => {
+        switch (format) {
+            case "png":
+                var item = new ClipboardItem({
+                    "image/png": base64img
+                });
+                break;
+            case "jpeg":
+                var item = new ClipboardItem({
+                    "image/jpeg": base64img
+                });
+                break;
+            case "webp":
+                var item = new ClipboardItem({
+                    "image/webp": base64img
+                });
+                break;
+            default:
+                console.log("Unexpected");
+        }
+        await navigator.clipboard.write([item]);
+    }
 }

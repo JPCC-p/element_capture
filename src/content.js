@@ -38,12 +38,13 @@ function capture(target, request) {
         },
         "tabid": request.tabid,
     }, function (response) {
-        Base64ToImage(response, request.data.Capture_Mode, request.data.Capture_Format);
+        Base64ToImage(response.data, request.data.Capture_Mode, request.data.Capture_Format);
     });
 }
 function Base64ToImage(base64img, mode, format) {
     var img_element = document.createElement("img");
     img_element.src = `data:image/${format};base64,${base64img}`;
+    console.log(mode)
     switch (mode) {
         case "Download":
             img_element.setAttribute("download");
@@ -62,26 +63,28 @@ function Base64ToImage(base64img, mode, format) {
     }
 }
 function copy_img(base64img, format) {
-    async () => {
-        switch (format) {
-            case "png":
-                var item = new ClipboardItem({
-                    "image/png": base64img
-                });
-                break;
-            case "jpeg":
-                var item = new ClipboardItem({
-                    "image/jpeg": base64img
-                });
-                break;
-            case "webp":
-                var item = new ClipboardItem({
-                    "image/webp": base64img
-                });
-                break;
-            default:
-                console.log("Unexpected");
-        }
-        await navigator.clipboard.write([item]);
+    switch (format) {
+        case "png":
+            var item = new ClipboardItem({
+                "image/png": base64img
+            });
+            break;
+        case "jpeg":
+            var item = new ClipboardItem({
+                "image/jpeg": base64img
+            });
+            break;
+        case "webp":
+            var item = new ClipboardItem({
+                "image/webp": base64img
+            });
+            break;
+        default:
+            console.log("Unexpected");
+    }
+    try {
+        navigator.clipboard.write([item]);
+    } catch (er) {
+        console.log(er)
     }
 }

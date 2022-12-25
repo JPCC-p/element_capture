@@ -20,7 +20,6 @@ function toggle_outline() {
     document.head.appendChild(style)
 }
 function capture(target, request) {
-    capture_mode = request.data;
     const x = target.clientX;
     const y = target.clientY;
     // クリックした座標にあるElementを取得
@@ -32,7 +31,8 @@ function capture(target, request) {
     chrome.runtime.sendMessage({
         message: "GetCapture",
         "data": {
-            "Capture_Name": request.Capture_Name,
+            "Capture_Mode": request.data.Capture_Mode,
+            "Capture_Format": request.data.Capture_Format,
             "coodinate": coodinate,
             "rect": rect
         },

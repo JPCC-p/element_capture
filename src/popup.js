@@ -10,7 +10,10 @@ function onRun() {
         chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
             chrome.tabs.sendMessage(tabs[0].id, {
                 message: "Capture",
-                "data": options.Capture_Mode,
+                "data": {
+                    Capture_Mode: options.Capture_Mode,
+                    Capture_Format: options.Capture_Format
+                },
                 "tabid": tabs[0].id
             });
         });

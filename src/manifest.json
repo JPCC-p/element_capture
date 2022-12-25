@@ -6,9 +6,6 @@
     "permissions": [
         "activeTab",
         "storage",
-        "clipboardWrite",
-        "downloads",
-        "pageCapture",
         "debugger",
         "background"
     ],

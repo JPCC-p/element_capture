@@ -19,7 +19,7 @@ chrome.runtime.onMessage.addListener(
                     captureBeyondViewPort: true
                 },
                 (result) => {
-                    console.log(result)
+                    Base64ToImage(result, request.data.Capture_Mode, request.data.Capture_Format)
                     chrome.debugger.detach({ tabId: request.tabid }, () => {
                         console.log('detach ok');
                     });
@@ -31,3 +31,47 @@ chrome.runtime.onMessage.addListener(
         );
     }
 )
+function Base64ToImage(base64img, mode, format) {
+    var img_element = document.createElement("img");
+    img_element.src = `data:image/${format};base64,${base64img}`;
+    switch (mode) {
+        case "Download":
+            img_element.setAttribute("download");
+            img_element.click();
+            break;
+        case "Copy":
+            copy_img(base64img,format);
+            break;
+        case "Copy&Download":
+            img_element.setAttribute("download");
+            img_element.click();
+            copy_img(base64img,format);
+            break;
+        default:
+            console.log("Unexpected")
+    }
+}
+function copy_img(base64img,format){
+    async () => {
+        switch (format) {
+            case "png":
+                var item = new ClipboardItem({
+                    "image/png": base64img
+                });
+                break;
+            case "jpeg":
+                var item = new ClipboardItem({
+                    "image/jpeg": base64img
+                });
+                break;
+            case "webp":
+                var item = new ClipboardItem({
+                    "image/webp": base64img
+                });
+                break;
+            default:
+                console.log("Unexpected");
+        }
+        await navigator.clipboard.write([item]);
+    }
+}

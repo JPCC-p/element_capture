@@ -27,5 +27,6 @@ chrome.runtime.onMessage.addListener(
             )
             return;
         });
+        return true;
     }
 )

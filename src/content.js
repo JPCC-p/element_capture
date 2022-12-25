@@ -37,9 +37,9 @@ function capture(target, request) {
             "rect": rect
         },
         "tabid": request.tabid,
-    }, function (response) { 
-        Base64ToImage(response,request.Capture_Mode,request.Capture_Format);
-     });
+    }, function (response) {
+        Base64ToImage(response, request.data.Capture_Mode, request.data.Capture_Format);
+    });
 }
 function Base64ToImage(base64img, mode, format) {
     var img_element = document.createElement("img");
@@ -50,18 +50,18 @@ function Base64ToImage(base64img, mode, format) {
             img_element.click();
             break;
         case "Copy":
-            copy_img(base64img,format);
+            copy_img(base64img, format);
             break;
         case "Copy&Download":
             img_element.setAttribute("download");
             img_element.click();
-            copy_img(base64img,format);
+            copy_img(base64img, format);
             break;
         default:
             console.log("Unexpected")
     }
 }
-function copy_img(base64img,format){
+function copy_img(base64img, format) {
     async () => {
         switch (format) {
             case "png":

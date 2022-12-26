@@ -79,17 +79,17 @@ function copy_img(base64img, format) {
     switch (format) {
         case "png":
             var item = new ClipboardItem({
-                "image/png": blo
+                "image/png": blob
             });
             break;
         case "jpeg":
             var item = new ClipboardItem({
-                "image/jpeg": blo
+                "image/jpeg": blob
             });
             break;
         case "webp":
             var item = new ClipboardItem({
-                "image/webp": blo
+                "image/webp": blob
             });
             break;
         default:

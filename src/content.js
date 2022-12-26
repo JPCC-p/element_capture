@@ -43,6 +43,12 @@ function capture(target, request) {
         },
         "tabid": request.tabid,
     }, function (response) {
+        if (request.data.Capture_Mode) {
+            request.data.Capture_Mode = "Copy";
+        }
+        if (request.data.Capture_Format) {
+            request.data.Capture_Format = "png";
+        }
         Base64ToImage(response.data, request.data.Capture_Mode, request.data.Capture_Format);
     });
 }

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <style>
-    :is(#mode,#format) {
+    #option div {
         display: flex;
         width: 50%;
     }
 
-    :is(.color,.type) {
+    #option button {
         flex-grow: 1;
         height: 3rem;
         margin: .5rem;
@@ -28,9 +28,15 @@
             <button class="type" style="background:#afa">jpeg</button>
             <button class="type" style="background:#aaf">webp</button>
         </div>
+        <div id="continue">
+            <div>連続してキャプチャする</div>
+            <button class="continue" style="background:#f88">true</button>
+            <button class="continue" style="background:#8f8">false</button>
+        </div>
     </div>
     <div id="msg"></div>
     <div id="msg2"></div>
+    <div id="msg3"></div>
     <script src="options.js"></script>
 </body>
 

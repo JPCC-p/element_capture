@@ -12,7 +12,8 @@ function onRun() {
                 message: "Capture",
                 "data": {
                     Capture_Mode: options.Capture_Mode,
-                    Capture_Format: options.Capture_Format
+                    Capture_Format: options.Capture_Format,
+                    Capture_Continue: options.Capture_Continue
                 },
                 "tabid": tabs[0].id
             });

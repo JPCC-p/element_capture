@@ -8,9 +8,10 @@ chrome.runtime.onMessage.addListener(
             if (!style) { return }
             target.preventDefault();
             capture(target, request);
+            if (!request.data.Capture_Continue) { window.removeEventListener("click", CaptureElement); }
         }
         // イベント削除
-        window.removeEventListener("click", CaptureElement)
+        window.removeEventListener("click", CaptureElement);
         // イベント登録
         window.addEventListener("click", CaptureElement);
     }

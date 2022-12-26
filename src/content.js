@@ -18,7 +18,7 @@ chrome.runtime.onMessage.addListener(
 function toggle_outline() {
     var style = document.getElementById('__capture__')
     if (style) { style.remove(); return }
-    var css = 'body *:hover {outline: solid 1px white;box-sizing: border-box;}'
+    var css = 'body *:hover {outline: solid 1px white !important;box-sizing: border-box !important;}'
     style = document.createElement('style')
     style.setAttribute('id', '__capture__')
     style.appendChild(document.createTextNode(css))

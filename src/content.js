@@ -2,14 +2,15 @@ chrome.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
         if (request.message !== "Capture") return;
         toggle_outline();
-        var style = document.getElementById('__capture__')
-        if (!style) { return }
 
         const CaptureElement = (target) => {
+            var style = document.getElementById('__capture__')
+            if (!style) { return }
             target.preventDefault();
-            window.removeEventListener("click", CaptureElement)
             capture(target, request);
         }
+        // イベント削除
+        window.removeEventListener("click", CaptureElement)
         // イベント登録
         window.addEventListener("click", CaptureElement);
     }

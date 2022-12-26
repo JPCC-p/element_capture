@@ -22,6 +22,6 @@ document.querySelectorAll(".continue").forEach((elem) => {
             Capture_Continue: e.target.innerText
         };
         chrome.storage.sync.set(options);
-        document.querySelector("#msg3").innerText = `Set option to ${options.Capture_Format}.`;
+        document.querySelector("#msg3").innerText = `Set option to ${options.Capture_Continue}.`;
     });
 });

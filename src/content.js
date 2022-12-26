@@ -1,9 +1,9 @@
 chrome.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
         if (request.message !== "Capture") return;
-        // document.getElementsByTagName("h1")[0].innerHTML = request.data;
-        // console.log(request.data);
         toggle_outline();
+        var style = document.getElementById('__capture__')
+        if (!style) { return }
         window.addEventListener("click", (target) => {
             target.preventDefault()
             capture(target, request);

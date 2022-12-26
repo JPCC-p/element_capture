@@ -4,10 +4,14 @@ chrome.runtime.onMessage.addListener(
         toggle_outline();
         var style = document.getElementById('__capture__')
         if (!style) { return }
-        window.addEventListener("click", (target) => {
-            target.preventDefault()
+
+        const CaptureElement = (target) => {
+            target.preventDefault();
+            window.removeEventListener("click", CaptureElement)
             capture(target, request);
-        });
+        }
+        // イベント登録
+        window.addEventListener("click", CaptureElement);
     }
 );
 function toggle_outline() {

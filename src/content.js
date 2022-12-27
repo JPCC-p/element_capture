@@ -10,8 +10,6 @@ chrome.runtime.onMessage.addListener(
             capture(target, request);
             if (!request.data.Capture_Continue) { window.removeEventListener("click", CaptureElement); }
         }
-        // イベント削除
-        window.removeEventListener("click", CaptureElement);
         // イベント登録
         window.addEventListener("click", CaptureElement);
     }
@@ -24,6 +22,7 @@ function toggle_outline() {
     style.setAttribute('id', '__capture__')
     style.appendChild(document.createTextNode(css))
     document.head.appendChild(style)
+    //ContinueがTrueのときaddeventlistnerが重複する
 }
 function capture(target, request) {
     const x = target.clientX;

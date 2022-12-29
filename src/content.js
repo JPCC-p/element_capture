@@ -8,7 +8,7 @@ chrome.runtime.onMessage.addListener(
             if (!style) { return }
             target.preventDefault();
             capture(target, request);
-            if (!request.data.Capture_Continue) { window.removeEventListener("click", CaptureElement.bind(request)); }
+            /*if (!request.data.Capture_Continue) { window.removeEventListener("click", CaptureElement.bind(request)); }    やり方わからんかった*/
         }
         // イベント登録
         if (document.body.classList.contains("__capture__")) {

@@ -11,7 +11,13 @@ chrome.runtime.onMessage.addListener(
             if (!request.data.Capture_Continue) { window.removeEventListener("click", CaptureElement); }
         }
         // イベント登録
-        window.addEventListener("click", CaptureElement);
+        if (document.body.classList.contains("__capture__")) {
+            return;
+        }
+        else {
+            document.body.classList += "__capture__";
+            window.addEventListener("click", CaptureElement);
+        }
     }
 );
 function toggle_outline() {

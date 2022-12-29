@@ -8,7 +8,7 @@ chrome.runtime.onMessage.addListener(
             if (!style) { return }
             target.preventDefault();
             capture(target, request);
-            if (!request.data.Capture_Continue) { window.removeEventListener("click", CaptureElement); }
+            if (!request.data.Capture_Continue) { window.removeEventListener("click", CaptureElement.bind(request)); }
         }
         // イベント登録
         if (document.body.classList.contains("__capture__")) {
@@ -16,7 +16,7 @@ chrome.runtime.onMessage.addListener(
         }
         else {
             document.body.classList += "__capture__";
-            window.addEventListener("click", CaptureElement);
+            window.addEventListener("click", CaptureElement.bind(request));
         }
     }
 );
@@ -49,10 +49,10 @@ function capture(target, request) {
         },
         "tabid": request.tabid,
     }, function (response) {
-        if (request.data.Capture_Mode) {
+        if (!request.data.Capture_Mode) {
             request.data.Capture_Mode = "Copy";
         }
-        if (request.data.Capture_Format) {
+        if (!request.data.Capture_Format) {
             request.data.Capture_Format = "png";
         }
         Base64ToImage(response.data, request.data.Capture_Mode, request.data.Capture_Format);
@@ -64,14 +64,14 @@ function Base64ToImage(base64img, mode, format) {
     console.log(mode)
     switch (mode) {
         case "Download":
-            img_element.setAttribute("download");
+            img_element.setAttribute("download","test.png");
             img_element.click();
             break;
         case "Copy":
             copy_img(base64img, format);
             break;
         case "Copy&Download":
-            img_element.setAttribute("download");
+            img_element.setAttribute("download","test.png");
             img_element.click();
             copy_img(base64img, format);
             break;

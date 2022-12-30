@@ -11,12 +11,13 @@ chrome.runtime.onMessage.addListener(
             /*if (!request.data.Capture_Continue) { window.removeEventListener("click", CaptureElement.bind(request)); }    やり方わからんかった*/
         }
         // イベント登録
-        if (document.body.classList.contains("__capture__")) {
-            return;
+        if (document.body.classList.contains("__capture__")) return;
+        document.body.classList += "__capture__";
+        if (request.data.Capture_Continue === "true") {
+            window.addEventListener("click", CaptureElement.bind(request));
         }
         else {
-            document.body.classList += "__capture__";
-            window.addEventListener("click", CaptureElement.bind(request));
+            window.addEventListener("click", CaptureElement.bind(request), { once: true });
         }
     }
 );

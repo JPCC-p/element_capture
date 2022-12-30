@@ -59,51 +59,40 @@ function capture(target, request) {
     });
 }
 function Base64ToImage(base64img, mode, format) {
-    var img_element = document.createElement("img");
-    img_element.src = `data:image/${format};base64,${base64img}`;
     console.log(mode)
     switch (mode) {
         case "Download":
-            img_element.setAttribute("download","test.png");
-            img_element.click();
+            download_img(base64img);
             break;
         case "Copy":
             copy_img(base64img, format);
             break;
         case "Copy&Download":
-            img_element.setAttribute("download","test.png");
-            img_element.click();
             copy_img(base64img, format);
+            download_img(base64img);
             break;
         default:
             console.log("Unexpected")
     }
 }
 function copy_img(base64img, format) {
-    // バイナリ変換
-    var bin = atob(base64img);
-    var buffer = new Uint8Array(bin.length);
-    for (var i = 0; i < bin.length; i++) {
-        buffer[i] = bin.charCodeAt(i);
-    }
-    var blob = new Blob([buffer], { type: 'image/png' }); //. イメージバッファから Blob を生成
-
+    var blob = bin2blob(base64img)
     switch (format) {
         case "png":
             var item = new ClipboardItem({
                 "image/png": blob
             });
             break;
-        case "jpeg":
-            var item = new ClipboardItem({
-                "image/jpeg": blob
-            });
-            break;
-        case "webp":
-            var item = new ClipboardItem({
-                "image/webp": blob
-            });
-            break;
+        // case "jpeg":
+        //     var item = new ClipboardItem({
+        //         "image/jpeg": blob
+        //     });
+        //     break;
+        // case "webp":
+        //     var item = new ClipboardItem({
+        //         "image/webp": blob
+        //     });
+        //     break;
         default:
             console.log("Unexpected");
     }
@@ -112,4 +101,26 @@ function copy_img(base64img, format) {
     } catch (er) {
         console.log(er)
     }
+}
+function download_img(base64img) {
+    var blob = bin2blob(base64img);
+    let dlLink = document.createElement("a");
+    const dataUrl = URL.createObjectURL(blob);
+    dlLink.href = dataUrl;
+
+    const fileName = `${document.title + Date.now().toString().slice(-5)}.${blob.type.replace("image/", "")}`; // 適当
+    dlLink.download = fileName;
+
+    dlLink.click();
+    dlLink.remove();
+}
+function bin2blob(base64img) {
+    // バイナリ変換
+    var bin = atob(base64img);
+    var buffer = new Uint8Array(bin.length);
+    for (var i = 0; i < bin.length; i++) {
+        buffer[i] = bin.charCodeAt(i);
+    }
+    var blob = new Blob([buffer], { type: 'image/png' }); //. イメージバッファから Blob を生成
+    return blob;
 }
